@@ -1,0 +1,4 @@
+﻿Put the pretrained vgg16 here
+Format: .ckpt
+Weights will be stored here
+Format: .ckpt
