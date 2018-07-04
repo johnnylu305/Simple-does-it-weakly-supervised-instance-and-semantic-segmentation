@@ -1,4 +1,7 @@
 # Simple-does-it-weakly-supervised-instance-and-semantic-segmentation
+There are five weakly supervised networks in  $\textbf{Simple Does It: Weakly Supervised Instance and Semantic Segmentation }$, by Khoreva et al. (CVPR 2017). Respectively,  $\textbf{aive, Box, Box$^i$, Grabcut+, M$\cap$G+}$. All of them use $\textbf{cheap-to-generate label, bounding box}$, during training and don't need other informations except image during testing.
+
+This repo contains a TensorFlow implementation of $\textbf{Grabcut version}$.
 
 ## My Environment
 ### Environment 1
@@ -14,6 +17,8 @@
   - 390.25
 - Python:
   - python 3.6.4
+- Python package:
+  - tqdm, bs4, opencv-python, pydensecrf, cython...
 - Tensorflow:
   - tensorflow-gpu 1.5.0
 ### Environment 2
@@ -29,6 +34,8 @@
   - 390.48
 - Python:
   - python 3.5.2
+- Python package:
+  - tqdm, bs4, opencv-python, pydensecrf, cython...
 - Tensorflow:
   - tensorflow-gpu 1.6.0
  
@@ -201,7 +208,7 @@ optional arguments:
                         name for label directory (default: Segmentation_label)
 ```
 ### Model/model.py
-- Network
+- Deeplab-Largefov
 ```
 usage: model.py [-h] [--dataset DATASET] [--set_name SET_NAME]
                 [--label_dir_name LABEL_DIR_NAME]
