@@ -258,7 +258,7 @@ def train_network(x_train, y_train):
             for j in tqdm.tqdm(range(ITER), desc = '{:{}}'.format('Epoch' + str(i), SPACE), unit_scale = UNIT_SCALE, bar_format = BAR_FORMAT):
                 # check empty or not
                 if x_train_[j].size:
-                    summary, optimizer_, loss_, predictions_, y_ = sess.run([merged, optimizer, loss, predictions, y], feed_dict={xp: x_train_[j], yp: y_train_[j]})
+                    summary, optimizer_, loss_ = sess.run([merged, optimizer, loss], feed_dict={xp: x_train_[j], yp: y_train_[j]})
                     writer.add_summary(summary, i * ITER + j)
             print ('{:{}}: {}'.format('Final Loss', SPACE, loss_))
         writer.close()
