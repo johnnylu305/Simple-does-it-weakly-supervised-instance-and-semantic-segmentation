@@ -37,7 +37,7 @@
 - [Pascal VOC Dataset Mirror](https://pjreddie.com/projects/pascal-voc-dataset-mirror/)
 
 ## Setup Dataset
-- My directory structure
+### My directory structure
 ```
 ./Simple_does_it/
 ├── Dataset
@@ -58,7 +58,7 @@
 ├── Preprocess
 └── Util
 ```
-- VOC2012 directory structure
+### VOC2012 directory structure
 ```
 VOCtrainval_11-May-2012
 └── VOCdevkit
@@ -73,8 +73,23 @@ VOCtrainval_11-May-2012
         ├── SegmentationClass
         └── SegmentationObject
 ```
-
-## Preprocess for training (See Usage for more details)
+- Put annotations in 'Annotations'
+```
+ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/Annotations/* {PATH}/Simple_does_it/Dataset/Annotations/ 
+```
+- Put images in 'JPEGImages'
+```
+mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/JPEGImages/* {PATH}/Simple_does_it/Dataset/JPEGImages/
+```
+- Put train.txt in 'Dataset'
+```
+mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt {PATH}/Simple_does_it/Dataset/  
+```
+- Put val.txt in 'Dataset'
+```
+mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/ImageSets/Segmentation/val.txt {PATH}/Simple_does_it/Dataset/  
+```
+## Training (See Usage for more details)
 ### Extract annotations from 'Annotations' according 'train.txt'
 - This will generate a 'train_pairs.txt' for 'grabcut.py'
 ```
