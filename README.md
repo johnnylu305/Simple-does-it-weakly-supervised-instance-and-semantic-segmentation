@@ -1,5 +1,5 @@
 # Simple-does-it-weakly-supervised-instance-and-semantic-segmentation
-There are five weakly supervised networks in  **Simple Does It: Weakly Supervised Instance and Semantic Segmentation**, by Khoreva et al. (CVPR 2017). Respectively, **Naive, Box, Box**$**^i**$**, Grabcut+, M**$**\cap**$**G+**. All of them use **cheap-to-generate label, bounding box**, during training and don't need other informations except image during testing.
+There are five weakly supervised networks in  **Simple Does It: Weakly Supervised Instance and Semantic Segmentation**, by Khoreva et al. (CVPR 2017). Respectively, **Naive, Box, Box**$^i$**, Grabcut+, M**$\cap$**G+**. All of them use **cheap-to-generate label, bounding box**, during training and don't need other informations except image during testing.
 
 This repo contains a TensorFlow implementation of **Grabcut version**.
 
