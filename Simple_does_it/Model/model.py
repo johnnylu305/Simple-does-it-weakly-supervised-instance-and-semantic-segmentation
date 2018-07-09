@@ -169,7 +169,7 @@ def network():
     y = tf.one_hot(y, depth = CLASS)
     y = tf.reshape(y, shape = [-1, CLASS])
     # resize predictions for cross entropy
-    predictions = tf.image.resize_bilinear(predictions, [WIDTH, HEIGHT])
+    predictions = tf.image.resize_nearest_neighbor(predictions, [WIDTH, HEIGHT])
     predictions = tf.reshape(predictions, [-1, CLASS])
     prob_prediction = tf.reshape(tf.nn.softmax(predictions), [BATCH_SIZE, WIDTH, HEIGHT, CLASS])
 
