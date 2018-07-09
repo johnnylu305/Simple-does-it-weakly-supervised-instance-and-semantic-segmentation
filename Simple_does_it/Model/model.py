@@ -208,7 +208,7 @@ def shuffle_unison(x, y):
     np.random.shuffle(y)
 
 # augmentation
-def augmentation(img):
+def augmentation(img, label):
     temp = np.pad(img, ((0, 0), (40, 40), (40, 40), (0, 0)), 'constant')
     for i in range(img.shape[0]):
         # translation
@@ -218,7 +218,8 @@ def augmentation(img):
         # flip
         if random.randint(0,1) == 0:
             img[i] = np.flip(img[i], 1)
-    return img
+            label[i] = np.flip(label[i], 1)
+    return img, label
 
 # training 
 def train_network(x_train, y_train):
@@ -244,10 +245,10 @@ def train_network(x_train, y_train):
             # shuffle data
             shuffle_unison(x_train, y_train)
             # augmentation
-            x_train_ = augmentation(copy.deepcopy(x_train))
+            x_train_, y_train_ = augmentation(copy.deepcopy(x_train), copy.deepcopy(y_train))
             # split for batch
             x_train_ = np.array_split(x_train_, ITER)
-            y_train_ = np.array_split(y_train, ITER)
+            y_train_ = np.array_split(y_train_, ITER)
             # save weight
             if i%SAVE_STEP==0:
                 saver.save(sess, BASEDIR + "/Model/models/model_" + str(i) + ".ckpt")
