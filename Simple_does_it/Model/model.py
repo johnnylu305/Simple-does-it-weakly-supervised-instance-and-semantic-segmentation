@@ -54,7 +54,7 @@ BATCH_SIZE = args.batch_size
 # default: 30000
 EPOCH = args.epoch
 # learning rate
-# defalut: 0.0005
+# defalut: 0.001
 LR = args.learning_rate
 # momentum for optimizer
 # default: 0.9
@@ -209,11 +209,11 @@ def shuffle_unison(x, y):
 
 # augmentation
 def augmentation(img, label):
-    temp = np.pad(img, ((0, 0), (40, 40), (40, 40), (0, 0)), 'constant')
+    temp = np.pad(img, ((0, 0), (15, 15), (15, 15), (0, 0)), 'constant')
     for i in range(img.shape[0]):
         # translation
-        shift1 = random.randint(0, 80)
-        shift2 = random.randint(0, 80)
+        shift1 = random.randint(0, 30) if random.randint(0, 1) else 15
+        shift2 = random.randint(0, 30) if random.randint(0, 1) else 15
         img[i] = temp[i][shift1:WIDTH + shift1, shift2:HEIGHT + shift2][:]
         # flip
         if random.randint(0,1) == 0:
@@ -229,16 +229,22 @@ def train_network(x_train, y_train):
         # setup tensorboard
         merged = tf.summary.merge_all()
         writer = tf.summary.FileWriter(BASEDIR + "/Model/Logs/", sess.graph)
-        # setup saver and restorer
-        saver = tf.train.Saver(tf.global_variables(), max_to_keep = 500)
-        restorer = tf.train.Saver(tf.get_collection('PRETRAIN_VGG16'))
-        # initial MOMENTUM and batch normalization weights
-        sess.run(tf.global_variables_initializer())       
-        # load weight for untrainable variables
-        restorer.restore(sess, VGG16_CKPT_PATH)
-        # initial trainable variables
-        init = tf.initialize_variables(tf.get_collection('UNPRETRAIN'))
-        sess.run(init)
+        if RESTORE_TARGET == '0':
+            # setup saver and restorer
+            saver = tf.train.Saver(tf.global_variables(), max_to_keep = 500)
+            restorer = tf.train.Saver(tf.get_collection('PRETRAIN_VGG16'))
+            # initial MOMENTUM and batch normalization weights
+            sess.run(tf.global_variables_initializer())       
+            # load weight for untrainable variables
+            restorer.restore(sess, VGG16_CKPT_PATH)
+            # initial trainable variables
+            init = tf.initialize_variables(tf.get_collection('UNPRETRAIN'))
+            sess.run(init)
+        else:
+            # setup saver
+            saver = tf.train.Saver(tf.global_variables())
+            # load weight
+            saver.restore(sess, RESTORE_CKPT_PATH)
         # training
         for i in range(EPOCH):
             print ('{:{}}: {}'.format('Epoch', SPACE, i))
@@ -251,11 +257,11 @@ def train_network(x_train, y_train):
             y_train_ = np.array_split(y_train_, ITER)
             # save weight
             if i%SAVE_STEP==0:
-                saver.save(sess, BASEDIR + "/Model/models/model_" + str(i) + ".ckpt")
+                saver.save(sess, BASEDIR + "/Model/models/model_" + str(i + int(RESTORE_TARGET)) + ".ckpt")
                 # learning rate decay
-            if i == 100 or i == 1000:
+            if i % 100 == 0:
                 global LR
-                LR = LR/5
+                LR = LR/10
             for j in tqdm.tqdm(range(ITER), desc = '{:{}}'.format('Epoch' + str(i), SPACE), unit_scale = UNIT_SCALE, bar_format = BAR_FORMAT):
                 # check empty or not
                 if x_train_[j].size:
