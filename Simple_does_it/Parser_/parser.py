@@ -55,8 +55,8 @@ def make_pair_parser():
     # dafault: ../Dataset
     parser.add_argument('--dataset', type = str, default = basedir + '/Dataset', help = 'path to dataset')
     # name for training set
-    # default: val.txt
-    parser.add_argument('--train_set_name', type = str, default = 'val.txt', help = 'name for training set')
+    # default: train.txt
+    parser.add_argument('--train_set_name', type = str, default = 'train.txt', help = 'name for training set')
     # name for annotation directory
     # default: Annotations
     parser.add_argument('--ann_dir_name', type = str, default = 'Annotations', help = 'name for annotation directory')
@@ -142,8 +142,8 @@ def model_parser():
     # dafault: ../dataset
     parser.add_argument('--dataset', type = str, default = basedir + '/Dataset', help = 'path to dataset')
     # name for set
-    # default: train.txt
-    parser.add_argument('--set_name', type = str, default = 'train.txt', help = 'name for set')   
+    # default: val.txt
+    parser.add_argument('--set_name', type = str, default = 'val.txt', help = 'name for set')   
     # label directory name
     # default: Segmentation_label
     parser.add_argument('--label_dir_name', type = str, default = 'Segmentation_label', help = 'name for label directory')
