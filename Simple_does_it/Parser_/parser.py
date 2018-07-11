@@ -55,8 +55,8 @@ def make_pair_parser():
     # dafault: ../Dataset
     parser.add_argument('--dataset', type = str, default = basedir + '/Dataset', help = 'path to dataset')
     # name for training set
-    # default: train.txt
-    parser.add_argument('--train_set_name', type = str, default = 'train.txt', help = 'name for training set')
+    # default: val.txt
+    parser.add_argument('--train_set_name', type = str, default = 'val.txt', help = 'name for training set')
     # name for annotation directory
     # default: Annotations
     parser.add_argument('--ann_dir_name', type = str, default = 'Annotations', help = 'name for annotation directory')
@@ -142,8 +142,8 @@ def model_parser():
     # dafault: ../dataset
     parser.add_argument('--dataset', type = str, default = basedir + '/Dataset', help = 'path to dataset')
     # name for set
-    # default: val.txt
-    parser.add_argument('--set_name', type = str, default = 'val.txt', help = 'name for set')   
+    # default: train.txt
+    parser.add_argument('--set_name', type = str, default = 'train.txt', help = 'name for set')   
     # label directory name
     # default: Segmentation_label
     parser.add_argument('--label_dir_name', type = str, default = 'Segmentation_label', help = 'name for label directory')
@@ -160,8 +160,8 @@ def model_parser():
     # dafault: 30000
     parser.add_argument('--epoch', type = int, default = 30000, help = 'epoch for training')
     # learning rate for training
-    # default: 0.0005
-    parser.add_argument('--learning_rate', type = float, default = 0.0005, help = 'learning rate for training')   
+    # default: 0.001
+    parser.add_argument('--learning_rate', type = float, default = 0.001, help = 'learning rate for training')   
     # momentum for optimizer
     # default: 0.9
     parser.add_argument('--momentum', type=float, default = 0.9, help = 'momentum for optimizer')
@@ -193,8 +193,8 @@ def model_parser():
     # default: 400
     parser.add_argument('--height', type = int, default = 400, help = 'height for resize')
     # restore target
-    # default: '100'
-    parser.add_argument('--restore_target', type = str, default = '100', help = 'target for restore ')
+    # default: '0'
+    parser.add_argument('--restore_target', type = str, default = '0', help = 'target for restore ')
 
     args = parser.parse_args()   
 
