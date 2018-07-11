@@ -234,7 +234,7 @@ optional arguments:
                         batch size for training (default: 3)
   --epoch EPOCH         epoch for training (default: 30000)
   --learning_rate LEARNING_RATE
-                        learning rate for training (default: 0.0005)
+                        learning rate for training (default: 0.001)
   --momentum MOMENTUM   momentum for optimizer (default: 0.9)
   --keep_prob KEEP_PROB
                         probability for dropout (default: 1)
@@ -255,7 +255,7 @@ optional arguments:
   --width WIDTH         width for resize (default: 400)
   --height HEIGHT       height for resize (default: 400)
   --restore_target RESTORE_TARGET
-                        target for restore (default: 100)
+                        target for restore (default: 0)
 ```
 ### Dataset/load.py   
 - Loading data for training / testing according to train.txt / val.txt
