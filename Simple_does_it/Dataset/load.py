@@ -40,10 +40,10 @@ class Load:
                 img_name = img_name.rstrip()
                 # load image
                 img = Image.open(self.dataset_path + '/' + self.img_dir_name + '/' + img_name + '.jpg')
-                img = img.resize((self.width, self.height), PIL.Image.LANCZOS)
-                img = np.array(img)
-                self.x.append(img)
                 if self.is_train:
+                    img = img.resize((self.width, self.height), PIL.Image.LANCZOS)
+                    img = np.array(img)
+                    self.x.append(img)
                     # load label
                     label = Image.open(self.dataset_path + '/' + self.label_dir_name + '/' + img_name + '.png')
                     label = label.resize((self.width, self.height), PIL.Image.NEAREST)
@@ -54,6 +54,8 @@ class Load:
                     label = np.expand_dims(label, axis = 2)
                     self.y.append(label)
                 else:
+                    img = np.array(img)
+                    self.x.append(img)
                     self.img_names.append(img_name)
             r.close()
         
