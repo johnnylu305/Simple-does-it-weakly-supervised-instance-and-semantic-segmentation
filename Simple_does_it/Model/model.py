@@ -123,6 +123,8 @@ def network():
     x = xp
     y = yp
     BATCH_SIZE = tf.shape(x)[0]
+    WIDTH = tf.shape(x)[1]
+    HEIGHT = tf.shape(x)[2]
     # DeepLab-LargeFOV
     with tf.variable_scope('vgg_16'): 
         with tf.variable_scope('conv1'):
@@ -318,9 +320,6 @@ def main():
         TEST_SIZE = len(x_test)
         # close dropout
         KEEP_PROB = 1
-        # get widht and height
-        WIDTH = x_test[0].shape[0]
-        HEIGHT = x_test[0].shape[1]
         # set batch size
         BATCH_SIZE = 1
         # test network
