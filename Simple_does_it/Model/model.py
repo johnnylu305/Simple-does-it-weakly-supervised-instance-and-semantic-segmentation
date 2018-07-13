@@ -211,12 +211,14 @@ def shuffle_unison(x, y):
 
 # augmentation
 def augmentation(img, label):
-    temp = np.pad(img, ((0, 0), (15, 15), (15, 15), (0, 0)), 'constant')
+    temp1 = np.pad(img, ((0, 0), (15, 15), (15, 15), (0, 0)), 'constant')
+    temp2 = np.pad(label, ((0, 0), (15, 15), (15, 15), (0, 0)), 'constant')
     for i in range(img.shape[0]):
         # translation
         shift1 = random.randint(0, 30) if random.randint(0, 1) else 15
         shift2 = random.randint(0, 30) if random.randint(0, 1) else 15
-        img[i] = temp[i][shift1:WIDTH + shift1, shift2:HEIGHT + shift2][:]
+        img[i] = temp1[i][shift1:WIDTH + shift1, shift2:HEIGHT + shift2][:]
+        label[i] = temp2[i][shift1:WIDTH + shift1, shift2:HEIGHT + shift2][:]
         # flip
         if random.randint(0,1) == 0:
             img[i] = np.flip(img[i], 1)
