@@ -48,8 +48,6 @@ class Load:
                     label = Image.open(self.dataset_path + '/' + self.label_dir_name + '/' + img_name + '.png')
                     label = label.resize((self.width, self.height), PIL.Image.NEAREST)
                     label = np.array(label)
-                    label = np.where((label > 21), 21, label)
-                    label = np.where((label < 0), 0, label)
                     # [w, h] to [w, h, 1] 
                     label = np.expand_dims(label, axis = 2)
                     self.y.append(label)
