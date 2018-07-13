@@ -93,6 +93,7 @@ CRF_PAIR_DIR_PATH = DATASET + '/' + args.crf_pair_dir_name
 # define placeholder 
 xp = tf.placeholder(tf.float32, shape = (None, None, None, 3))
 yp = tf.placeholder(tf.int32, shape = (None, None, None, 1))
+lr = tf.placeholder(tf.float32)
 
 # build convolution layer for deeplab
 def build_conv(input_, shape, name, strides = [1, 1, 1, 1], padding = 'SAME', activation = True, c_name = 'PRETRAIN_VGG16', holes = None):
@@ -182,7 +183,7 @@ def network():
     
     # define optimizer
     with tf.variable_scope('optimizer'):
-        optimizer = tf.train.MomentumOptimizer(learning_rate = LR,momentum = MOMENTUM).minimize(loss)
+        optimizer = tf.train.MomentumOptimizer(learning_rate = lr, momentum = MOMENTUM).minimize(loss)
 
     # resize to image format
     predictions = tf.argmax(predictions, axis = 1)
@@ -227,6 +228,7 @@ def augmentation(img, label):
 
 # training 
 def train_network(x_train, y_train):
+    global LR
     with tf.Session() as sess:
         # get network
         loss, optimizer, predictions, y, prob_predictions = network()
@@ -263,13 +265,12 @@ def train_network(x_train, y_train):
             if i%SAVE_STEP==0:
                 saver.save(sess, BASEDIR + "/Model/models/model_" + str(i + int(RESTORE_TARGET)) + ".ckpt")
                 # learning rate decay
-            if i % 100 == 0:
-                global LR
+            if (i+1) % 100 == 0:
                 LR = LR/10
             for j in tqdm.tqdm(range(ITER), desc = '{:{}}'.format('Epoch' + str(i), SPACE), unit_scale = UNIT_SCALE, bar_format = BAR_FORMAT):
                 # check empty or not
                 if x_train_[j].size:
-                    summary, optimizer_, loss_ = sess.run([merged, optimizer, loss], feed_dict={xp: x_train_[j], yp: y_train_[j]})
+                    summary, optimizer_, loss_ = sess.run([merged, optimizer, loss], feed_dict={xp: x_train_[j], yp: y_train_[j], lr: LR})
                     writer.add_summary(summary, i * ITER + j)
             print ('{:{}}: {}'.format('Final Loss', SPACE, loss_))
         writer.close()
