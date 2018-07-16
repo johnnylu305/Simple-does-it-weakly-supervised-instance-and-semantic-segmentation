@@ -54,9 +54,6 @@ class Maker:
             soup = BeautifulSoup(r, 'xml')
             # get segmentation flag
             is_seg = soup.find('segmented').string
-            if is_seg == '0':
-                self.ann_info = np.array([])
-                return
             # get image names
             imagename = soup.find('filename').string
             # get bounding boxes coordinate
