@@ -123,7 +123,7 @@ class Grabcut:
             IOU = np.sum(intersection) / np.sum(union) 
             # if IOU less than 45%
             # reset img_mask to bbox
-            if IOU < 0.45:
+            if IOU < 0.25:
                 img_mask = bbox
 
             masks.append([img_mask, grab_img_name, rect])
