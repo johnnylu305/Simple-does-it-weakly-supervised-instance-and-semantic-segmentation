@@ -37,6 +37,7 @@ class Divider:
     def load_image(self):
         # load image names
         for filename in tqdm.tqdm(os.listdir(self.img_dir_path), desc='{:{}}'.format('Load image names', SPACE), unit_scale = UNIT_SCALE, bar_format = BAR_FORMAT):
+            filename = filename[:filename.rfind('.')]
             self.img_names = np.append(self.img_names, filename)
         # get amount of images 
         self.img_num = self.img_names.size
