@@ -48,7 +48,7 @@ BAR_FORMAT = '{}{}{}'.format('{l_bar}', '{bar}', '| {n_fmt}/{total_fmt}')
 
 # hyperparameter
 # batch size
-# default: 3 
+# default:  
 BATCH_SIZE = args.batch_size
 # epoch
 # default: 30000
