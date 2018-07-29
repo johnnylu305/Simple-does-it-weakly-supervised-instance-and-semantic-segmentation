@@ -257,7 +257,8 @@ def train_network(x_train, y_train):
             # shuffle data
             shuffle_unison(x_train, y_train)
             # augmentation
-            x_train_, y_train_ = augmentation(copy.deepcopy(x_train), copy.deepcopy(y_train))
+            # x_train_, y_train_ = augmentation(copy.deepcopy(x_train), copy.deepcopy(y_train))
+            x_train_, y_train_ = x_train, y_train
             # split for batch
             x_train_ = np.array_split(x_train_, ITER)
             y_train_ = np.array_split(y_train_, ITER)
@@ -285,12 +286,12 @@ def test_network(x_test, img_names):
         restorer.restore(sess, RESTORE_CKPT_PATH)
         for i in tqdm.tqdm(range(TEST_SIZE), desc = '{:{}}'.format('Test and save', SPACE), unit_scale = UNIT_SCALE, bar_format = BAR_FORMAT):
             predictions_, prob_predictions_ = sess.run([predictions, prob_predictions], feed_dict={xp: [x_test[i]]})
-            save_ = Save(copy.deepcopy(x_test[i]), np.squeeze(predictions_), img_names[i], PRED_DIR_PATH, PAIR_DIR_PATH, CLASS)
+            save_ = Save(x_test[i], np.squeeze(predictions_), img_names[i], PRED_DIR_PATH, PAIR_DIR_PATH, CLASS)
             save_.save()
 
             dense_CRF_ = dense_CRF(x_test[i], prob_predictions_[0])
             crf_mask = dense_CRF_.run_dense_CRF()
-            save_ = Save(copy.deepcopy(x_test[i]), crf_mask, img_names[i], CRF_DIR_PATH, CRF_PAIR_DIR_PATH, CLASS)
+            save_ = Save(x_test[i], crf_mask, img_names[i], CRF_DIR_PATH, CRF_PAIR_DIR_PATH, CLASS)
             save_.save()
 def main():
     global WIDTH
