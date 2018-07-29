@@ -154,8 +154,8 @@ def model_parser():
     # dafault: 21
     parser.add_argument('--classes', type = int, default = 21, help = 'number of classes for segmentation')
     # batch size for training
-    # default: 3
-    parser.add_argument('--batch_size', type = int, default = 3, help = 'batch size for training')
+    # default: 1
+    parser.add_argument('--batch_size', type = int, default = 1, help = 'batch size for training')
     # epoch for training
     # dafault: 30000
     parser.add_argument('--epoch', type = int, default = 30000, help = 'epoch for training')
