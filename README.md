@@ -88,14 +88,6 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/Annotations/* {PATH}/Simple_
 ```
 mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/JPEGImages/* {PATH}/Simple_does_it/Dataset/JPEGImages/
 ```
-- Put train.txt in 'Dataset'
-```
-mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/ImageSets/Segmentation/train.txt {PATH}/Simple_does_it/Dataset/  
-```
-- Put val.txt in 'Dataset'
-```
-mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/ImageSets/Segmentation/val.txt {PATH}/Simple_does_it/Dataset/  
-```
 
 ## Training (See Usage for more details)
 ### Download pretrain vgg16
