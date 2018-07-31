@@ -96,8 +96,6 @@ class Grabcut:
             miny, minx, maxy, maxx = self.str_to_int(miny), self.str_to_int(minx), self.str_to_int(maxy), self.str_to_int(maxx)    
             # load image
             img = cv2.imread(self.img_dir_path + '/' + img_name + '.jpg')
-            # BGR to RGB
-            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             # grabcut parameter
             mask = np.zeros(img.shape[:2], np.uint8)
             bgdModel = np.zeros((1, 65), np.float64)
@@ -113,7 +111,8 @@ class Grabcut:
             # reset mask2
             if np.sum(img_mask) == 0:
                 img_mask = np.where((mask == 0), 0, 1).astype('uint8')
-
+            # BGR to RGB
+            img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             # boundingbox to binary mask 
             bbox = np.zeros((img.shape[0], img.shape[1]))
             bbox[rect[1]:rect[1] + rect[3]+1, rect[0]:rect[0] + rect[2] + 1] = 1
