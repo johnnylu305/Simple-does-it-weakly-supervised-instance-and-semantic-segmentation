@@ -187,6 +187,8 @@ class Grabcut:
         
         # save image with grabcut masks
         fig.savefig(self.dataset_path + '/' + self.img_grabcuts_dir + '/' + img_name + '.png')
+        plt.cla()
+        plt.clf()
         plt.close()        
     @staticmethod    
     def str_to_int(str_):
