@@ -47,5 +47,7 @@ class Save:
     
         # save image with grabcut masks
         fig.savefig(self.pair_dir_path + '/' + self.img_name + '.png')
-        plt.close()
+        plt.cla()
+        plt.clf()
+        plt.close('all')
 
