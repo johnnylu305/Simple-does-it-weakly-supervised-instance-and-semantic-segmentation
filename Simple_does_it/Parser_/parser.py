@@ -187,11 +187,11 @@ def model_parser():
     # default: ./dataset/CRF_pred_pairs
     parser.add_argument('--crf_pair_dir_name', type = str, default = 'CRF_pairs', help = 'name for crf pairs directory')
     # width for resize
-    # default: 400
-    parser.add_argument('--width', type = int, default = 400, help = 'width for resize')
+    # default: 513
+    parser.add_argument('--width', type = int, default = 513, help = 'width for resize')
     # height for resize
-    # default: 400
-    parser.add_argument('--height', type = int, default = 400, help = 'height for resize')
+    # default: 513
+    parser.add_argument('--height', type = int, default = 513, help = 'height for resize')
     # restore target
     # default: '0'
     parser.add_argument('--restore_target', type = str, default = '0', help = 'target for restore ')
