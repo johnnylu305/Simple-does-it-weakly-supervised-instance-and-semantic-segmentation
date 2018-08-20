@@ -122,7 +122,7 @@ class Grabcut:
             intersection = np.where((combine == 2), 1, 0).astype('float')
             union = np.where((combine == 0), 0, 1).astype('float')
             IOU = np.sum(intersection) / np.sum(union) 
-            # if IOU less than 45%
+            # if IOU less than 25%
             # reset img_mask to bbox
             if IOU < 0.25:
                 img_mask = bbox
