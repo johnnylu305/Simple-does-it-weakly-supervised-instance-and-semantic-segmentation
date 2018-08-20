@@ -223,7 +223,7 @@ optional arguments:
                         name for image directory (default: JPEGImages)
   --classes CLASSES     number of classes for segmentation (default: 21)
   --batch_size BATCH_SIZE
-                        batch size for training (default: 3)
+                        batch size for training (default: 1)
   --epoch EPOCH         epoch for training (default: 30000)
   --learning_rate LEARNING_RATE
                         learning rate for training (default: 0.001)
@@ -244,8 +244,8 @@ optional arguments:
                         CRF_masks)
   --crf_pair_dir_name CRF_PAIR_DIR_NAME
                         name for crf pairs directory (default: CRF_pairs)
-  --width WIDTH         width for resize (default: 400)
-  --height HEIGHT       height for resize (default: 400)
+  --width WIDTH         width for resize (default: 513)
+  --height HEIGHT       height for resize (default: 513)
   --restore_target RESTORE_TARGET
                         target for restore (default: 0)
 ```
