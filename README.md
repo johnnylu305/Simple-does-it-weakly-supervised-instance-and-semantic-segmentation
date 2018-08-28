@@ -6,7 +6,9 @@ This repo contains a TensorFlow implementation of **Grabcut version**.
 ## My Environment
 ### Environment 1
 - Operating System:
-  - Arch Linux 4.15.15-1  
+  - Arch Linux 4.15.15-1
+- Memory
+  - 128GB
 - CUDA:
   - CUDA V9.0.176 
 - CUDNN:
@@ -24,6 +26,8 @@ This repo contains a TensorFlow implementation of **Grabcut version**.
 ### Environment 2
 - Operating System:
   - Ubuntu 16.04  
+- Memory
+  - 128GB
 - CUDA:
   - CUDA V9.0.176 
 - CUDNN:
@@ -41,7 +45,6 @@ This repo contains a TensorFlow implementation of **Grabcut version**.
  
 ## Downloading the VOC12 dataset
 - [Visual Object Classes Challenge 2012 (VOC2012)](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/)
-- [Pascal VOC Dataset Mirror](https://pjreddie.com/projects/pascal-voc-dataset-mirror/)
 
 ## Setup Dataset
 ### My directory structure
@@ -94,34 +97,56 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/JPEGImages/* {PATH}/Simple_d
 - [tensorflow/models](https://github.com/tensorflow/models/tree/master/research/slim)
   - Put vgg_16.ckpt in 'models'
   
-### Extract annotations from 'Annotations' according to 'train.txt'
-- This will generate a 'train_pairs.txt' for 'grabcut.py'
-```
-python Dataset/make_train.py 
-```
+### Extract annotations from 'Annotations' according to 'train.txt' or 'voc_train.txt' for VOC12 + SDB or VOC12
+- For VOC12 + SDB (train set size: 10582)
+  - This will generate a 'train_pairs.txt' for 'grabcut.py'
+  ```
+  python ./Dataset/make_train.py 
+  ```
+- For VOC12 (train set size: 1464) 
+  - This will generate a 'voc_train_pairs.txt' for 'grabcut.py'
+  ```
+  python ./Dataset/make_train.py --train_set_name voc_train.txt --train_pair_name voc_train_pairs.txt
+  ```
 ### Generate label for training by 'grabcut.py'
 - Result of grabcut for each bounding box will be stored at 'Grabcut_inst'
 - Result of grabcut for each image will be stored at 'Segmentation_label'
 - Result of grabcut for each image combing with image and bounding box will be stored at 'Grabcut_pairs'
-- Note: If the label has existed at 'Segmentation_label', grabcut.py will skip that image
-```
-python Preprocess/grabcut.py
-```
+- Note: If the instance hasn't existed at 'Grabcut_inst', grabcut.py will grabcut that image
+- For VOC12 + SDB
+  ```
+  python ./Preprocess/grabcut.py
+  ```
+- For VOC12
+  ```
+  python ./Preprocess/grabcut.py --train_pair_name voc_train_pairs.txt
+  ```
 ### Train network
 - The event file for tensorboard will be stored at 'Logs'
-```
-python Model/model.py --is_train 1 --set_name train.txt   
-```
-
+- Train on VOC12 + SDB (train set size: 10582)
+  - This will consume lot of memory.
+    - The train set is so large.
+    - Data dtyp will be casted from np.uint8 to np.float16 for mean substraction.
+  - Eliminate mean substraction for lower memory usage.
+    - Change the dtype in ./Dataset/load.py from np.float16 to np.uint8
+    - Comment mean substraction in ./Model/model.py
+  ```
+  python ./Model/model.py --is_train 1 --set_name train.txt   
+  ```
+- Train on VOC12 (train set size: 10582)
+  ```
+  python ./Model/model.py --is_train 1 --set_name voc_train.txt   
+  ```
 ## Testing (See Usage for more details)
 ### Test network
 - Result will be stored at 'Pred_masks'
 - Result combing with image will be stored at 'Pred_pairs'
 - Result after dense CRF will be stored at 'CRF_masks'
 - Result after dense CRF combing with image will be stored at 'CRF_pairs'
-```
-python Model/model.py 
-```
+- Test on VOC12 (val set size: 1449)
+  ```
+  python Model/model.py --restore_target {num}
+  ```
 
 ## Usage
 ### Parser_/parser.py
@@ -182,7 +207,7 @@ usage: grabcut.py [-h] [--dataset DATASET] [--img_dir_name IMG_DIR_NAME]
 optional arguments:
   -h, --help            show this help message and exit
   --dataset DATASET     path to dataset (default:
-                        Preprocess/../Parser_/../Dataset)
+                        ./Preprocess/../Parser_/../Dataset)
   --img_dir_name IMG_DIR_NAME
                         name for image directory (default: JPEGImages)
   --train_pair_name TRAIN_PAIR_NAME
@@ -195,7 +220,7 @@ optional arguments:
   --pool_size POOL_SIZE
                         pool for multiprocess (default: 4)
   --grabcut_iter GRABCUT_ITER
-                        grabcut iteration (default: 5)
+                        grabcut iteration (default: 3)
   --label_dir_name LABEL_DIR_NAME
                         name for label directory (default: Segmentation_label)
 ```
@@ -215,7 +240,8 @@ usage: model.py [-h] [--dataset DATASET] [--set_name SET_NAME]
 
 optional arguments:
   -h, --help            show this help message and exit
-  --dataset DATASET     path to dataset (default: Model/../Parser_/../Dataset)
+  --dataset DATASET     path to dataset (default:
+                        ./Model/../Parser_/../Dataset)
   --set_name SET_NAME   name for set (default: val.txt)
   --label_dir_name LABEL_DIR_NAME
                         name for label directory (default: Segmentation_label)
@@ -223,17 +249,17 @@ optional arguments:
                         name for image directory (default: JPEGImages)
   --classes CLASSES     number of classes for segmentation (default: 21)
   --batch_size BATCH_SIZE
-                        batch size for training (default: 1)
-  --epoch EPOCH         epoch for training (default: 30000)
+                        batch size for training (default: 16)
+  --epoch EPOCH         epoch for training (default: 2000)
   --learning_rate LEARNING_RATE
-                        learning rate for training (default: 0.001)
+                        learning rate for training (default: 0.01)
   --momentum MOMENTUM   momentum for optimizer (default: 0.9)
   --keep_prob KEEP_PROB
-                        probability for dropout (default: 1)
+                        probability for dropout (default: 0.5)
   --is_train IS_TRAIN   training or testing [1 = True / 0 = False] (default:
                         0)
   --save_step SAVE_STEP
-                        step for saving weight (default: 10)
+                        step for saving weight (default: 2)
   --pred_dir_name PRED_DIR_NAME
                         name for prediction masks directory (default:
                         Pred_masks)
@@ -260,11 +286,6 @@ optional arguments:
 ###  Postprocess/dense_CRF.py 
 - Dense CRF a machine learning method
 - Refine the result
-
-## Future plan
-- Tune hyperparameters
-- Multiscale Combinatorial Grouping
-- Grabcut+
 
 ## Reference
 - [[1] Anna Khoreva, Rodrigo Benenson, Jan Hosang, Matthias Hein, Bernt Schiele. Simple Does It: Weakly Supervised Instance and Semantic Segmentation. CVPR 2017](https://www.mpi-inf.mpg.de/departments/computer-vision-and-multimodal-computing/research/weakly-supervised-learning/simple-does-it-weakly-supervised-instance-and-semantic-segmentation/)
