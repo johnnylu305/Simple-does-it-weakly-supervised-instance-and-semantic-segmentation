@@ -59,6 +59,7 @@ This repo contains a TensorFlow implementation of **Grabcut version**.
 │   ├── JPEGImages
 │   ├── Pred_masks
 │   ├── Pred_pairs
+│   ├── SegmentationClass
 │   └── Segmentation_label
 ├── Model
 │   ├── Logs
@@ -90,6 +91,10 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/Annotations/* {PATH}/Simple_
 - Put images in 'JPEGImages'
 ```
 mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/JPEGImages/* {PATH}/Simple_does_it/Dataset/JPEGImages/
+```
+- Put Ground truth in 'SegmentationClass' for computing mIoU and IoU
+```
+mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/Simple_does_it/Dataset/SegmentationClass/
 ```
 
 ## Training (See Usage for more details)
