@@ -109,8 +109,10 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   python ./Model/model.py --is_train 1 --set_name voc_train.txt --restore_target 1020   
   ```
 - Performance
+
+
 | set      | CRF      | mIoU     |
-| -------- | -------- | -------- |
+| :---:    | :---:    |  :---:   |
 | train    |X         | 64.93%   |
 | train    |O         | 66.90%   |
 | val      |X         | 39.03%   |
