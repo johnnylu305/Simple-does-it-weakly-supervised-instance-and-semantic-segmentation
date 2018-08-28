@@ -99,7 +99,7 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
 ## Demo (See Usage for more details)
 ### Download pretrain model training on VOC12 (train set size: 1464)
 - [Pretrain model](https://drive.google.com/drive/u/1/folders/1o_6H4S9HkZzTfhChPjoFZgUiAzm5QQzY)
-  - Move files in VOC12_CKPT to 'models'
+  - Move files from VOC12_CKPT to 'models'
 - Run test
   ```
   python ./Model/model.py --restore_target 1020
@@ -110,7 +110,7 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   ```
 ### Download pretrain model training on VOC12 + SBD (train set size: 10582)
 - [Pretrain model](https://drive.google.com/drive/u/1/folders/1o_6H4S9HkZzTfhChPjoFZgUiAzm5QQzY)
-  - Move files in VOC12_CKPT to 'models'
+  - Move files from VOC12_SBD_CKPT to 'models'
 - Run test
   ```
   python ./Model/model.py --is_train 1 --set_name train.txt --restore_target 600
