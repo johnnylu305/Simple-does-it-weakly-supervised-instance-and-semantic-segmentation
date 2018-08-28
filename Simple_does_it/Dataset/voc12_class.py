@@ -1,6 +1,7 @@
 # VOC12 classes
 # 0 for background
 voc12_classes = {
+        'background':0,
         'aeroplane': 1,
         'bicycle': 2,
         'bird': 3,

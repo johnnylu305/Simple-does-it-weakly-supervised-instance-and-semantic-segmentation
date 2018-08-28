@@ -48,17 +48,17 @@ class Load:
                     label = Image.open(self.dataset_path + '/' + self.label_dir_name + '/' + img_name + '.png')
                     label = label.resize((self.width, self.height), PIL.Image.NEAREST)
                     label = np.array(label)
-                    # [w, h] to [w, h, 1] 
+                    # [w, h] to [w, h, 1]
                     label = np.expand_dims(label, axis = 2)
                     self.y.append(label)
                 else:
-                    img = np.array(img)
+                    img = np.array(img, dtype = np.float16)
                     self.x.append(img)
                     self.img_names.append(img_name)
             r.close()
         
         if self.is_train:
-            return np.asarray(self.x), np.asarray(self.y)
+            return np.asarray(self.x, dtype = np.float16), np.asarray(self.y)
         else:
             return np.asarray(self.x), self.img_names
 
