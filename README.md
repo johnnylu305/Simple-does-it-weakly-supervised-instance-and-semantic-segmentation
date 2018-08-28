@@ -96,6 +96,29 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/JPEGImages/* {PATH}/Simple_d
 ```
 mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/Simple_does_it/Dataset/SegmentationClass/
 ```
+## Demo (See Usage for more details)
+### Download pretrain model training on VOC12 (train set size: 1464)
+- [Pretrain model](https://drive.google.com/drive/u/1/folders/1o_6H4S9HkZzTfhChPjoFZgUiAzm5QQzY)
+  - Move files in VOC12_CKPT to 'models'
+- Run test
+  ```
+  python ./Model/model.py --restore_target 1020
+  ```
+- Run train
+  ```
+  python ./Model/model.py --is_train 1 --set_name voc_train.txt --restore_target 1020   
+  ```
+### Download pretrain model training on VOC12 + SBD (train set size: 10582)
+- [Pretrain model](https://drive.google.com/drive/u/1/folders/1o_6H4S9HkZzTfhChPjoFZgUiAzm5QQzY)
+  - Move files in VOC12_CKPT to 'models'
+- Run test
+  ```
+  python ./Model/model.py --is_train 1 --set_name train.txt --restore_target 600
+  ```
+- Run train
+  ```
+  python ./Model/model.py --is_train 1 --restore_target 600   
+  ```
 
 ## Training (See Usage for more details)
 ### Download pretrain vgg16
@@ -103,7 +126,7 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   - Put vgg_16.ckpt in 'models'
   
 ### Extract annotations from 'Annotations' according to 'train.txt' or 'voc_train.txt' for VOC12 + SDB or VOC12
-- For VOC12 + SDB (train set size: 10582)
+- For VOC12 + SBD (train set size: 10582)
   - This will generate a 'train_pairs.txt' for 'grabcut.py'
   ```
   python ./Dataset/make_train.py 
@@ -118,17 +141,17 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
 - Result of grabcut for each image will be stored at 'Segmentation_label'
 - Result of grabcut for each image combing with image and bounding box will be stored at 'Grabcut_pairs'
 - Note: If the instance hasn't existed at 'Grabcut_inst', grabcut.py will grabcut that image
-- For VOC12 + SDB
+- For VOC12 + SBD (train set size: 10582)
   ```
   python ./Preprocess/grabcut.py
   ```
-- For VOC12
+- For VOC12 (train set size: 1464)
   ```
   python ./Preprocess/grabcut.py --train_pair_name voc_train_pairs.txt
   ```
 ### Train network
 - The event file for tensorboard will be stored at 'Logs'
-- Train on VOC12 + SDB (train set size: 10582)
+- Train on VOC12 + SBD (train set size: 10582)
   - This will consume lot of memory.
     - The train set is so large.
     - Data dtyp will be casted from np.uint8 to np.float16 for mean substraction.
@@ -138,7 +161,7 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   ```
   python ./Model/model.py --is_train 1 --set_name train.txt   
   ```
-- Train on VOC12 (train set size: 10582)
+- Train on VOC12 (train set size: 1464)
   ```
   python ./Model/model.py --is_train 1 --set_name voc_train.txt   
   ```
