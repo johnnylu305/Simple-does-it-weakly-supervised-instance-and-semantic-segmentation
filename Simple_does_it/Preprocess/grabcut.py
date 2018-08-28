@@ -115,16 +115,16 @@ class Grabcut:
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             # boundingbox to binary mask 
             bbox = np.zeros((img.shape[0], img.shape[1]))
-            bbox[rect[1]:rect[1] + rect[3]+1, rect[0]:rect[0] + rect[2] + 1] = 1
+            bbox[rect[1]:rect[1] + rect[3], rect[0]:rect[0] + rect[2]] = 1
 
             # count IOU
             combine = bbox + img_mask
             intersection = np.where((combine == 2), 1, 0).astype('float')
             union = np.where((combine == 0), 0, 1).astype('float')
             IOU = np.sum(intersection) / np.sum(union) 
-            # if IOU less than 25%
+            # if IOU less than 15%
             # reset img_mask to bbox
-            if IOU < 0.25:
+            if IOU < 0.15:
                 img_mask = bbox
 
             masks.append([img_mask, grab_img_name, rect])
