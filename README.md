@@ -148,6 +148,13 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/JPEGImages/* {PATH}/Simple_d
   python Model/model.py --restore_target {num}
   ```
 
+## Performance (See Usage for more details)
+### Evaluate mIoU and IoU
+- Compute mIoU and IoU
+  ```
+  python ./Dataset/mIoU.py 
+  ```
+
 ## Usage
 ### Parser_/parser.py
 - Parse the command line argument
@@ -275,6 +282,25 @@ optional arguments:
   --restore_target RESTORE_TARGET
                         target for restore (default: 0)
 ```
+### Dataset/mIoU.py
+- Compute mIoU and IoU
+```
+usage: mIoU.py [-h] [--dataset DATASET] [--set_name SET_NAME]
+               [--GT_dir_name GT_DIR_NAME] [--Pred_dir_name PRED_DIR_NAME]
+               [--classes CLASSES]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET     path to dataset (default:
+                        ./Dataset/../Parser_/../Dataset)
+  --set_name SET_NAME   name for set (default: val.txt)
+  --GT_dir_name GT_DIR_NAME
+                        name for ground truth directory (default:
+                        SegmentationClass)
+  --Pred_dir_name PRED_DIR_NAME
+                        name for prediction directory (default: CRF_masks)
+  --classes CLASSES     number of classes (default: 21)
+```
 ### Dataset/load.py   
 - Loading data for training / testing according to train.txt / val.txt
 ### Dataset/save_result.py  
@@ -289,6 +315,7 @@ optional arguments:
 
 ## Reference
 - [[1] Anna Khoreva, Rodrigo Benenson, Jan Hosang, Matthias Hein, Bernt Schiele. Simple Does It: Weakly Supervised Instance and Semantic Segmentation. CVPR 2017](https://www.mpi-inf.mpg.de/departments/computer-vision-and-multimodal-computing/research/weakly-supervised-learning/simple-does-it-weakly-supervised-instance-and-semantic-segmentation/)
-- [[2] philferriere. Weakly Supervised Segmentation with Tensorflow. Implements instance segmentation as described in Simple Does It: Weakly Supervised Instance and Semantic Segmentation, by Khoreva et al. (CVPR 2017).](https://github.com/philferriere/tfwss)
-- [[3] Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, Alan L. Yuille. DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs. arXive 2016](https://arxiv.org/abs/1606.00915)
-- [[4] Philipp Krähenbühl, Vladlen Koltun. Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials. NIPS 2011](https://arxiv.org/abs/1210.5644)
+- [[2] Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, Alan L. Yuille. Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs. ICLR2015]
+- [[3] philferriere. Weakly Supervised Segmentation with Tensorflow. Implements instance segmentation as described in Simple Does It: Weakly Supervised Instance and Semantic Segmentation, by Khoreva et al. (CVPR 2017).](https://github.com/philferriere/tfwss)
+- [[4] Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos, Kevin Murphy, Alan L. Yuille. DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs. arXive 2016](https://arxiv.org/abs/1606.00915)
+- [[5] Philipp Krähenbühl, Vladlen Koltun. Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials. NIPS 2011](https://arxiv.org/abs/1210.5644)
