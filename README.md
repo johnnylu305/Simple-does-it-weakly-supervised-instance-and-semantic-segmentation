@@ -108,6 +108,14 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   ```
   python ./Model/model.py --is_train 1 --set_name voc_train.txt --restore_target 1020   
   ```
+- Performance
+  | set      | CRF      | mIoU     |
+  | -------- | -------- | -------- |
+  | train    |X         | 64.93%   |
+  | train    |O         | 66.90%   |
+  | val      |X         | 39.03%   |
+  | val      |O         | 42.54%   |
+
 ### Download pretrain model training on VOC12 + SBD (train set size: 10582)
 - [Pretrain model](https://drive.google.com/drive/u/1/folders/1o_6H4S9HkZzTfhChPjoFZgUiAzm5QQzY)
   - Move files from VOC12_SBD_CKPT to 'models'
