@@ -104,8 +104,8 @@ def grabcut_parser():
     # default: 4
     parser.add_argument('--pool_size', type = int, default = 4, help = 'pool for multiprocess')
     # grabcut iteration
-    # default: 5
-    parser.add_argument('--grabcut_iter', type = int, default = 5, help = 'grabcut iteration')   
+    # default: 3
+    parser.add_argument('--grabcut_iter', type = int, default = 3, help = 'grabcut iteration')   
     # label directory name
     # default: Segmentation_label
     parser.add_argument('--label_dir_name', type = str, default = 'Segmentation_label', help = 'name for label directory')   
@@ -154,26 +154,26 @@ def model_parser():
     # dafault: 21
     parser.add_argument('--classes', type = int, default = 21, help = 'number of classes for segmentation')
     # batch size for training
-    # default: 1
-    parser.add_argument('--batch_size', type = int, default = 1, help = 'batch size for training')
+    # default: 16
+    parser.add_argument('--batch_size', type = int, default = 16, help = 'batch size for training')
     # epoch for training
-    # dafault: 30000
-    parser.add_argument('--epoch', type = int, default = 30000, help = 'epoch for training')
+    # dafault: 2000
+    parser.add_argument('--epoch', type = int, default = 2000, help = 'epoch for training')
     # learning rate for training
-    # default: 0.001
-    parser.add_argument('--learning_rate', type = float, default = 0.001, help = 'learning rate for training')   
+    # default: 0.01
+    parser.add_argument('--learning_rate', type = float, default = 0.01, help = 'learning rate for training')   
     # momentum for optimizer
     # default: 0.9
     parser.add_argument('--momentum', type=float, default = 0.9, help = 'momentum for optimizer')
     # probability for dropout
-    # default: 1
-    parser.add_argument('--keep_prob', type=float, default = 1, help = 'probability for dropout')   
+    # default: 0.5
+    parser.add_argument('--keep_prob', type=float, default = 0.5, help = 'probability for dropout')   
     # training or testing
     # default: 0 means False
     parser.add_argument('--is_train', type = int, default = 0, help = 'training or testing [1 = True / 0 = False]')
     # step for saving weight
-    # default: 10
-    parser.add_argument('--save_step', type = int, default = 10, help = 'step for saving weight')
+    # default: 2
+    parser.add_argument('--save_step', type = int, default = 2, help = 'step for saving weight')
     # directory for prediction masks 
     # default: ./dataset/Pred_masks
     parser.add_argument('--pred_dir_name', type = str, default = 'Pred_masks', help = 'name for prediction masks directory')
@@ -237,4 +237,44 @@ def model_parser():
     if not os.path.isdir(args.dataset + '/' + args.crf_pair_dir_name):
         parser.error('Wrong crf prediction pairs directory name')   
 
+    return args
+
+def mIoU_parser():
+    parser = argparse.ArgumentParser(formatter_class = argparse.ArgumentDefaultsHelpFormatter)
+
+    # path to dataset
+    # dafault: ../dataset
+    parser.add_argument('--dataset', type = str, default = basedir + '/Dataset', help = 'path to dataset')
+    # name for set
+    # default: val.txt
+    parser.add_argument('--set_name', type = str, default = 'val.txt', help = 'name for set')   
+    # name of ground truth directory
+    # default: SegmentationClass
+    parser.add_argument('--GT_dir_name', type = str, default = 'SegmentationClass', help = 'name for ground truth directory')
+    # name of prediction directory
+    # default: CRF_masks
+    parser.add_argument('--Pred_dir_name', type = str, default = 'CRF_masks', help = 'name for prediction directory')
+    # number of classes
+    # default: 21
+    parser.add_argument('--classes', type = int, default = 21, help = 'number of classes')
+
+    args = parser.parse_args()
+
+    # show information
+    print ('{:{}}: {}'.format('Dataset', SPACE, args.dataset))
+    print ('{:{}}: {}'.format('Set name', SPACE, args.set_name))
+    print ('{:{}}: {}'.format('ground truth directory name', SPACE, args.GT_dir_name))
+    print ('{:{}}: {}'.format('Prediction directory name', SPACE, args.Pred_dir_name))
+    print ('{:{}}: {}'.format('Classes', SPACE, args.classes))
+    
+    # check valid or not
+    if not os.path.isdir(args.dataset):
+        parser.error('Wrong dataset path')
+    if not os.path.isfile(args.dataset + '/' + args.set_name):
+        parser.error('Wrong set name')
+    if not os.path.isdir(args.dataset + '/' + args.GT_dir_name):
+        parser.error('Wrong ground truth directory name')
+    if not os.path.isdir(args.dataset + '/' + args.Pred_dir_name):
+        parser.error('Wrong prediction directory name')   
+    
     return args
