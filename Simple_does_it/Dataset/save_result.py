@@ -24,7 +24,7 @@ class Save:
         self.classes = classes
     def save(self):
         # save segmentation
-        scipy.misc.toimage(self.masks, cmin=0, cmax=255).save(self.pred_dir_path + '/' + self.img_name+'.png')
+        scipy.misc.toimage(self.masks, cmin=0, cmax=255, pal = voc12_color.colors_map, mode = 'P').save(self.pred_dir_path + '/' + self.img_name+'.png')
         # create figure        
         fig = plt.figure()
         
