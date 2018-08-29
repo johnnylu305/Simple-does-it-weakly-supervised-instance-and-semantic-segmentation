@@ -136,21 +136,21 @@ class Grabcut:
             for k in range(j + 1,i):
                 masks[j][0] = masks[j][0] - masks[k][0]
             masks[j][0] = np.where((masks[j][0] == 1), 1, 0).astype('uint8')
-            # save mask
-            scipy.misc.imsave(self.dataset_path + '/' + self.grabcut_dir_name + '/' + masks[j][1], masks[j][0] * 255) 
             # get class
             grab_img_name = masks[j][1]
             class_ = grab_img_name.split('_')[-1]
             class_ = int(class_[:class_.rfind('.')])
             # set class
             masks[j][0] = np.where((masks[j][0] == 1), class_, 0).astype('uint8')
-        
+            # save mask
+            scipy.misc.toimage(masks[j][0], cmin = 0, cmax = 255, pal = voc12_color.colors_map, mode = 'P').save(self.dataset_path + '/' + self.grabcut_dir_name + '/' + masks[j][1]) 
+
         # merge masks 
         mask = np.zeros(mask[0][0].shape)
         for m in masks:
             mask = mask + m[0]
         # save merged mask
-        scipy.misc.toimage(mask, cmin = 0, cmax = 255).save(self.dataset_path + '/' + self.label_dir_name + '/' + img_name + '.png')
+        scipy.misc.toimage(mask, cmin = 0, cmax = 255, pal = voc12_color.colors_map, mode = 'P').save(self.dataset_path + '/' + self.label_dir_name + '/' + img_name + '.png')
         # create figure        
         fig = plt.figure()
         
