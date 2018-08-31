@@ -283,7 +283,7 @@ def train_network(x_train, y_train):
             pretrain_var = tf.get_collection('PRETRAIN_VGG16') 
             other_var = list(set(tf.global_variables()) - set(pretrain_var))
             # setup saver and restorer
-            saver = tf.train.Saver(tf.global_variables(), max_to_keep = 500)
+            saver = tf.train.Saver(tf.global_variables(), max_to_keep = 1000)
             restorer = tf.train.Saver(pretrain_var)       
             # load weight for untrainable variables
             restorer.restore(sess, VGG16_CKPT_PATH)
@@ -292,7 +292,7 @@ def train_network(x_train, y_train):
             sess.run(init)
         else:
             # setup saver
-            saver = tf.train.Saver(tf.global_variables())
+            saver = tf.train.Saver(tf.global_variables(), max_to_keep = 1000)
             # load weight
             saver.restore(sess, RESTORE_CKPT_PATH)
         # training
