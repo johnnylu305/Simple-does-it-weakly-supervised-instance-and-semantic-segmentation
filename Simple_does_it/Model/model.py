@@ -4,6 +4,8 @@ import tensorflow as tf
 import tensorflow.contrib.slim as slim
 import numpy as np
 import math
+import matplotlib as mlp
+mlp.use('Agg')
 import matplotlib.pyplot as plt
 import copy
 import random
