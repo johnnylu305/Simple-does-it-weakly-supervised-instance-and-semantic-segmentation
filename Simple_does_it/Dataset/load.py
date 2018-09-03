@@ -1,6 +1,8 @@
 import os
 import sys
 import numpy as np
+import matplotlib as mlp
+mlp.use('Agg')
 import matplotlib.pyplot as plt
 import PIL
 from PIL import Image
