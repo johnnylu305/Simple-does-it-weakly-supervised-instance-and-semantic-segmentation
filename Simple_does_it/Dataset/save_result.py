@@ -1,6 +1,8 @@
 import os
 import sys
 import scipy.misc
+import matplotlib as mlp
+mlp.use('Agg')
 import matplotlib.pyplot as plt
 import numpy as np
 
