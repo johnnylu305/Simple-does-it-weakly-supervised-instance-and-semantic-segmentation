@@ -3,6 +3,8 @@ import sys
 import tqdm
 import cv2
 import numpy as np
+import matplotlib as mlp
+mlp.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import random
