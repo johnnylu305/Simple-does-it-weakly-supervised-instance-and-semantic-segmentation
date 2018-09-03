@@ -129,6 +129,16 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   ```
   python ./Model/model.py --is_train 1 --set_name train.txt --restore_target 600
   ```
+- Performance
+
+
+| set      | CRF      | mIoU     |
+| :---:    | :---:    |  :---:   |
+| train    |X         | 66.01%   |
+| train    |O         | 67.54%   |
+| val      |X         | 49.53%   |
+| val      |O         | 52.45%   |
+
 
 ## Training (See Usage for more details)
 ### Download pretrain vgg16
