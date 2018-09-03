@@ -1,5 +1,7 @@
 import numpy as np
 import tqdm
+import matplotlib as mlp
+mlp.use('Agg')
 import matplotlib.pyplot as plt
 import os
 import sys
