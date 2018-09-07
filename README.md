@@ -123,21 +123,21 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   - Move files from VOC12_SBD_CKPT to 'models'
 - Run test
   ```
-  python ./Model/model.py --restore_target 600
+  python ./Model/model.py --restore_target 538
   ```
 - Run train
   ```
-  python ./Model/model.py --is_train 1 --set_name train.txt --restore_target 600
+  python ./Model/model.py --is_train 1 --set_name train.txt --restore_target 538
   ```
 - Performance
 
 
 | set      | CRF      | mIoU     |
 | :---:    | :---:    |  :---:   |
-| train    |X         | 66.01%   |
-| train    |O         | 67.54%   |
-| val      |X         | 49.53%   |
-| val      |O         | 52.45%   |
+| train    |X         | 66.87%   |
+| train    |O         | 68.21%   |
+| val      |X         | 51.90%   |
+| val      |O         | 54.52%   |
 
 
 ## Training (See Usage for more details)
