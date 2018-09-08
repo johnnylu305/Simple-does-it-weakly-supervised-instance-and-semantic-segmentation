@@ -8,7 +8,7 @@ This repo contains a TensorFlow implementation of **Grabcut version**.
 - Operating System:
   - Arch Linux 4.15.15-1
 - Memory
-  - 128GB
+  - 64GB
 - CUDA:
   - CUDA V9.0.176 
 - CUDNN:
@@ -27,7 +27,7 @@ This repo contains a TensorFlow implementation of **Grabcut version**.
 - Operating System:
   - Ubuntu 16.04  
 - Memory
-  - 128GB
+  - 64GB
 - CUDA:
   - CUDA V9.0.176 
 - CUDNN:
