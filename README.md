@@ -104,7 +104,7 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   ```
   python ./Model/model.py --restore_target 1020
   ```
-- Run train
+- Run train (See Training for more details)
   ```
   python ./Model/model.py --is_train 1 --set_name voc_train.txt --restore_target 1020   
   ```
@@ -125,7 +125,7 @@ mv {PATH}/VOCtrainval_11-May-2012/VOCdevkit/VOC2012/SegmentationClass/* {PATH}/S
   ```
   python ./Model/model.py --restore_target 538
   ```
-- Run train
+- Run train (See Training for more details)
   ```
   python ./Model/model.py --is_train 1 --set_name train.txt --restore_target 538
   ```
