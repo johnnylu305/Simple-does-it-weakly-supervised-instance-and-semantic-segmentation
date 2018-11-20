@@ -337,12 +337,9 @@ def train_network(x_train, y_train):
             print('{:{}}: {}'.format('Epoch', SPACE, i))
             # shuffle data
             shuffle_unison(x_train, y_train)
-            # augmentation
-            x_train_, y_train_ = augmentation(copy.deepcopy(x_train),
-                                              copy.deepcopy(y_train))
             # split for batch
-            x_train_ = np.array_split(x_train_, ITER)
-            y_train_ = np.array_split(y_train_, ITER)
+            x_train_ = np.array_split(x_train, ITER)
+            y_train_ = np.array_split(y_train, ITER)
             # save weight
             if i % SAVE_STEP == 0:
                 saver.save(sess, BASEDIR + "/Model/models/model_" +
@@ -354,6 +351,9 @@ def train_network(x_train, y_train):
                                unit_scale=UNIT_SCALE, bar_format=BAR_FORMAT):
                 # check empty or not
                 if x_train_[j].size:
+                    # augmentation
+                    x_train_[j], y_train_[j] = augmentation(x_train_[j],
+                                                            y_train_[j])
                     summary, optimizer_, loss_ = sess.run(
                             [merged, optimizer, loss],
                             feed_dict={xp: x_train_[j],
