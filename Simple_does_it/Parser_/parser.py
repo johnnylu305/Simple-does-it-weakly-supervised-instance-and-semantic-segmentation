@@ -343,3 +343,48 @@ def mIoU_parser():
     if not os.path.isdir(args.dataset + '/' + args.Pred_dir_name):
         parser.error('Wrong prediction directory name')
     return args
+
+
+def boxi_parser():
+    parser = argparse.ArgumentParser(
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+    # path to dataset
+    # dafault: ../dataset
+    parser.add_argument('--dataset', type=str, default=basedir + '/Dataset',
+                        help='path to dataset')
+    # path to annotations directory
+    # default: ./dataset/Annotations
+    parser.add_argument('--ann_dir_name', type=str, default='Annotations',
+                        help='name for annotations directory')
+    # name for set name
+    # default: train.txt
+    parser.add_argument('--set_name', type=str,
+                        default='train.txt',
+                        help='name for set')
+    # label directory name
+    # default: Segmentation_label
+    parser.add_argument('--label_dir_name', type=str,
+                        default='Segmentation_label',
+                        help='name for label directory')
+    args = parser.parse_args()
+
+    # show information
+    print('{:{}}: {}'.format('Dataset', SPACE, args.dataset))
+    print('{:{}}: {}'.format('Annotations directory name', SPACE,
+                             args.ann_dir_name))
+    print('{:{}}: {}'.format('Set name', SPACE, args.set_name))
+    print('{:{}}: {}'.format('Label directory name', SPACE,
+                             args.label_dir_name))
+
+    # check valid or not
+    if not os.path.isdir(args.dataset):
+        parser.error('Wrong dataset path')
+    if not os.path.isdir(args.dataset + '/' + args.ann_dir_name):
+        parser.error('Wrong annotations directory name')
+    if not os.path.isfile(args.dataset + '/' + args.set_name):
+        parser.error('Wrong set name')
+    if not os.path.isdir(args.dataset + '/' + args.label_dir_name):
+        parser.error('Wrong label directory name')
+
+    return args
