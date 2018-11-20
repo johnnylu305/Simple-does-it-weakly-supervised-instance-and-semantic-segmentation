@@ -1,7 +1,7 @@
 # VOC12 classes
 # 0 for background
 voc12_classes = {
-        'background':0,
+        'background': 0,
         'aeroplane': 1,
         'bicycle': 2,
         'bird': 3,
@@ -21,4 +21,4 @@ voc12_classes = {
         'sheep': 17,
         'sofa': 18,
         'train': 19,
-        'tvmonitor': 20}; 
+        'tvmonitor': 20}
