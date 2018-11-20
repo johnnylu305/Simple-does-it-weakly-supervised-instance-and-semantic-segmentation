@@ -21,4 +21,5 @@ voc12_classes = {
         'sheep': 17,
         'sofa': 18,
         'train': 19,
-        'tvmonitor': 20}
+        'tvmonitor': 20,
+        'ignore': 255}
