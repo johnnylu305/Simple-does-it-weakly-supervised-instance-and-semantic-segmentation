@@ -229,8 +229,7 @@ def network():
 
     # define loss function
     with tf.variable_scope('loss'):
-        loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits_v2(
-            logits=predictions, labels=y))
+        loss = -tf.reduce_mean(y*tf.log(tf.nn.softmax(predictions)+1e-10))
         tf.summary.scalar('loss', loss)
 
     # get variables
